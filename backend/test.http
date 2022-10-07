@@ -1,0 +1,27 @@
+### Login
+POST http://localhost:9420/login
+Content-Type: application/json
+
+{
+    "username": "test@pfgbulgaria.com",
+    "password": "test@pfgbulgaria.com"
+}
+
+### GetNews
+
+GET http://localhost:9420/news
+Content-Type: application/json
+Authorization: Bearer udhtj7afdz3nrzs4d2qtz4qopg5btd50o44p4bjznv3glcxtvgkfik9wjbrtxn6c
+
+### GetArticle
+
+GET http://localhost:9420/news/796101
+Content-Type: application/json
+Authorization: Bearer udhtj7afdz3nrzs4d2qtz4qopg5btd50o44p4bjznv3glcxtvgkfik9wjbrtxn6c
+
+
+### GetArticle Comments
+
+GET http://localhost:9420/news/796101/comments/1
+Content-Type: application/json
+Authorization: Bearer udhtj7afdz3nrzs4d2qtz4qopg5btd50o44p4bjznv3glcxtvgkfik9wjbrtxn6c

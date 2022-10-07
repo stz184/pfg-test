@@ -64,14 +64,76 @@ app.get("/news", async (req, res) => {
   let news = [];
   for (let i = 0; i < 20; i++) {
     news.push({
-      id: faker.random.numeric(10),
+      id: faker.random.numeric(6),
       title: faker.lorem.sentence(),
       published: faker.date.soon(),
-      content: faker.lorem.paragraphs(4),
+      content: faker.lorem.paragraphs(faker.random.numeric(2)),
     });
   }
 
   res.send(JSON.stringify(news));
+});
+
+app.get("/news/:id", async (req, res) => {
+  await delay(1200);
+  res.setHeader("Content-Type", "application/json");
+
+  if (req.get("Authorization") != `Bearer ${accessToken}`) {
+    res.status(401).send(
+      JSON.stringify({
+        error: "Invalid token",
+      })
+    );
+    return;
+  }
+
+  const articleId = req.params.id;
+  res.send(
+    JSON.stringify({
+      id: articleId,
+      title: faker.lorem.sentence(),
+      published: faker.date.soon(),
+      content: faker.lorem.paragraphs(faker.random.numeric(2)),
+    })
+  );
+});
+
+app.get("/news/:id/comments/:page", async (req, res) => {
+  await delay(1200);
+  res.setHeader("Content-Type", "application/json");
+
+  if (req.get("Authorization") != `Bearer ${accessToken}`) {
+    res.status(401).send(
+      JSON.stringify({
+        error: "Invalid token",
+      })
+    );
+    return;
+  }
+
+  const page = req.params.page;
+  const articleId = req.params.id;
+
+  if (page < 1 || page > 10 || articleId < 1) {
+    res.status(401).send(
+      JSON.stringify({
+        error: "Invalid request",
+      })
+    );
+    return;
+  }
+
+  let comments = [];
+  for (let i = 0; i < 20; i++) {
+    comments.push({
+      id: faker.random.numeric(6),
+      articleId: articleId,
+      author: faker.lorem.sentence(),
+      content: faker.lorem.sentence(),
+    });
+  }
+
+  res.send(JSON.stringify(comments));
 });
 
 app.listen(port, () => {

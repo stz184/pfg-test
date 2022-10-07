@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+#PFG React Test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Build a simple React app with the following screens:
 
-## Available Scripts
+1. Login screen with username and password fields + validation
+   * Valida user names are: User: test@pfgbulgaria.com, Pass: test@pfgbulgaria.com
+   * To get a login token: https://localhost:9420/login
+2. Home page that displays a grid with news articles a search bar on top that filters based on the article title
+   * To get the news articles use the following API: https://localhost:9420/news
+   * You need to provide the token returned from the login API
+   * Every article should have a view button, text preview (max 400 characters) and a date
+3. Article page that displays the full article
+   * To get the article use the following API: https://localhost:9420/news/{id}
+   * You need to provide the token returned from the login API
+   * The article should have a title, text and a date and a comment section
+       * Use 3 pages of comments (pagination) 
+       * The commands can be retrieved using the following API: https://localhost:9420/news/{id}/comments/{page}
+4. Profile page with user details and a form with prefilled user details
 
-In the project directory, you can run:
+All pages must have a header with PFG TEST as title and a profile menu that includes the user avatar fom the response, the rest if the design is as you like, the requirements sare that the app can be navigated and used
 
-### `npm start`
+Requirements:
+   * use tailwind css ot sass/less for styling (tailwind is preferred and included in the project)
+   * must use TypeScript and define interfaces for data and props
+   * must use React Hooks
+   * must use React Router
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### To start the test backend
+1. The server starts on port 9420 so when calling form the app use https://localhost:9420
+```bash 
+cd backend
+npm start
+```
+2. The data is not 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### example requests
 
-### `npm test`
+```http request
+### Login
+POST http://localhost:9420/login
+Content-Type: application/json
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+{
+    "username": "test@pfgbulgaria.com",
+    "password": "test@pfgbulgaria.com"
+}
 
-### `npm run build`
+### GetNews
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+GET http://localhost:9420/news
+Content-Type: application/json
+Authorization: Bearer wq7a3kkxs0o70s1athc17e9pzxg4g4cgha8g3xhvwqagcl2ekx95cdsdzadom2iv
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### GetArticle
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+GET http://localhost:9420/news/796101
+Content-Type: application/json
+Authorization: Bearer wq7a3kkxs0o70s1athc17e9pzxg4g4cgha8g3xhvwqagcl2ekx95cdsdzadom2iv
 
-### `npm run eject`
+### GetArticle Comments
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+GET http://localhost:9420/news/796101/comments/11
+Content-Type: application/json
+Authorization: Bearer wq7a3kkxs0o70s1athc17e9pzxg4g4cgha8g3xhvwqagcl2ekx95cdsdzadom2iv
+```
