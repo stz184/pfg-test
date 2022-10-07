@@ -1,4 +1,4 @@
-#PFG React Test
+# PFG React Test
 
 Build a simple React app with the following screens:
 
@@ -22,8 +22,8 @@ All pages must have a header with PFG TEST as title and a profile menu that incl
 Requirements:
    * use tailwind css ot sass/less for styling (tailwind is preferred and included in the project)
    * must use TypeScript and define interfaces for data and props
-   * must use React Hooks
-   * must use React Router
+   * for state management use react contexts
+   * use fetch api of the browser to make the API calls and use await/async where possible
 
 ### To start the test backend
 1. The server starts on port 9420 so when calling form the app use https://localhost:9420
@@ -35,7 +35,7 @@ npm start
 
 ### example requests
 
-```http request
+```
 ### Login
 POST http://localhost:9420/login
 Content-Type: application/json
