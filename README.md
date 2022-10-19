@@ -2,7 +2,9 @@
 
 Build a simple React app with the following screens:
 
+Basic:
 1. Login screen with username and password fields + validation
+   * Show error messages for every field!
    * Valida user names are: User: test@pfgbulgaria.com, Pass: test@pfgbulgaria.com
    * To get a login token: https://localhost:9420/login
 2. Home page that displays a grid with news articles a search bar on top that filters based on the article title
@@ -17,13 +19,16 @@ Build a simple React app with the following screens:
        * The commands can be retrieved using the following API: https://localhost:9420/news/{id}/comments/{page}
 4. Profile page with user details and a form with prefilled user details
 
-All pages must have a header with PFG TEST as title and a profile menu that includes the user avatar fom the response, the rest if the design is as you like, the requirements sare that the app can be navigated and used
+* All pages must include a header with title (PFG test for example) and links for navihation + a profile menu (user avatar fom the response + profilepage and logout link)
+* Make sure the pages are navigable, so you can go from one to onether and back. 
+* Provide visual feedback in the form of loaders
+* The rest if the design is as you like.
 
 Requirements:
-   * use tailwind css ot sass/less for styling (tailwind is preferred and included in the project)
    * must use TypeScript and define interfaces for data and props
-   * for state management use react contexts
-   * use fetch api of the browser to make the API calls and use await/async where possible
+   * use tailwind css or sass/less for styling (tailwind is preferred and included in the project)
+   * Use react contexts for state managment (user tokens and stuff)
+   * Use the broser fetch api to make the API calls and use await/async where possible
 
 ### To start the test backend
 1. The server starts on port 9420 so when calling form the app use https://localhost:9420
