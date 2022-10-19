@@ -2,7 +2,7 @@
 
 Build a simple React app with the following screens:
 
-Basic:
+#### BASIC
 1. Login screen with username and password fields + validation
    * Show error messages for every field!
    * Valida user names are: User: test@pfgbulgaria.com, Pass: test@pfgbulgaria.com
@@ -19,12 +19,13 @@ Basic:
        * The commands can be retrieved using the following API: https://localhost:9420/news/{id}/comments/{page}
 4. Profile page with user details and a form with prefilled user details
 
+### For all pages:
 * All pages must include a header with title (PFG test for example) and links for navihation + a profile menu (user avatar fom the response + profilepage and logout link)
 * Make sure the pages are navigable, so you can go from one to onether and back. 
 * Provide visual feedback in the form of loaders
 * The rest if the design is as you like.
 
-Requirements:
+### Requirements:
    * must use TypeScript and define interfaces for data and props
    * use tailwind css or sass/less for styling (tailwind is preferred and included in the project)
    * Use react contexts for state managment (user tokens and stuff)
