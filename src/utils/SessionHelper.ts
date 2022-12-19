@@ -2,7 +2,8 @@ import Cookies from 'js-cookie';
 
 export interface SessionHelper {
     getToken: () => string|undefined,
-    setToken: (value: string) => string|undefined
+    setToken: (value: string) => string|undefined,
+    deleteToken: () => void
 }
 
 const tokenCookie: string = 'token';
@@ -16,6 +17,9 @@ export default {
             sameSite: 'none',
             secure: true
         })
+    },
+    deleteToken(): void {
+        Cookies.remove(tokenCookie);
     }
 
 } as SessionHelper;

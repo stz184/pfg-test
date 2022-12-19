@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import AuthenticationService, {LoginData} from "../services/AuthenticationService";
 import UserProfile from "../user/UserProfile";
 import ProfileHelper from "../utils/ProfileHelper";
 import SessionHelper from "../utils/SessionHelper";
+import {UserContext} from "../App";
 
 const LoginForm = () => {
     const schema = Yup.object().shape({
@@ -14,6 +15,8 @@ const LoginForm = () => {
         password: Yup.string()
             .required("Password is a required field")
     });
+
+    const { setIsLoggedIn } = useContext(UserContext);
 
     return (
         <Formik
@@ -27,6 +30,8 @@ const LoginForm = () => {
 
                     ProfileHelper.persistProfile(profile);
                     SessionHelper.setToken(token);
+
+                    setIsLoggedIn(true);
                 })
             }}
         >
@@ -41,7 +46,7 @@ const LoginForm = () => {
                 <form noValidate onSubmit={handleSubmit}>
                     <div className="form-group mb-6">
                         <input
-                            type="text"
+                            type="email"
                             className={`${touched.username ? (errors.username ? 'bg-red-50 border-red-500' : 'bg-green-50 border-green-500') : ''}form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none`}
                             id="username"
                             name="username"
