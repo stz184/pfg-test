@@ -1,8 +1,9 @@
 import FetchHelper from "../utils/FetchHelper";
 
-const endpoint: string = process.env.REACT_APP_BACKEND_URL || 'https://localhost:9420';
+const endpoint: string = (process.env.REACT_APP_BACKEND_URL || 'https://localhost:9420').replace(/\/+$/, '');
 
 export interface LoginData {
+    [index: string]: string,
     username: string,
     password: string
 }

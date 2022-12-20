@@ -5,6 +5,8 @@ import LoginForm from "./components/LoginForm";
 import SessionHelper from "./utils/SessionHelper";
 import UserProfile from "./components/UserProfile";
 import ProfileHelper from "./utils/ProfileHelper";
+import {RouterProvider} from "react-router-dom";
+import type {Router} from "@remix-run/router";
 
 interface UserContext {
   isLoggedIn: boolean,
@@ -13,7 +15,11 @@ interface UserContext {
 
 export const UserContext = createContext<UserContext>({} as UserContext);
 
-function App() {
+type AppParams = {
+  router: Router
+}
+
+function App({ router }: AppParams) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   useEffect(() => {
@@ -40,7 +46,7 @@ function App() {
           </div>
           <br className="clear-left" />
           {/* search bar end */}
-          <section className="mb-32 text-gray-800 background-radial-gradient">
+          <section className="mb-12 text-gray-800 background-radial-gradient">
             <div className="px-6 py-12 md:px-12 text-center lg:text-left">
               <div className="container mx-auto xl:px-32">
                 <div className="grid lg:grid-cols-2 gap-12 flex items-center">
@@ -69,6 +75,7 @@ function App() {
               </div>
             </div>
           </section>
+          <RouterProvider router={router} />
         </div>
       </UserContext.Provider>
   );
