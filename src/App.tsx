@@ -7,6 +7,7 @@ import UserProfile from "./components/UserProfile";
 import ProfileHelper from "./utils/ProfileHelper";
 import {Outlet} from "react-router-dom";
 import SearchBar from "./components/SearchBar";
+import NavBar from "./components/NavBar";
 
 interface UserContext {
     isLoggedIn: boolean,
@@ -27,8 +28,10 @@ function App() {
     return (
         <UserContext.Provider value={contextValue}>
             <div className="container my-24 mt-7 px-6 mx-auto">
-                <SearchBar/>
-                <br className="clear-left"/>
+                <div className="flex mb-6">
+                    <SearchBar/>
+                    <NavBar />
+                </div>
                 <section className="mb-12 text-gray-800 background-radial-gradient">
                     <div className="px-6 py-12 md:px-12 text-center lg:text-left">
                         <div className="container mx-auto xl:px-32">
