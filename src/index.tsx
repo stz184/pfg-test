@@ -5,6 +5,7 @@ import App from './App';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import NewsGrid from "./components/NewsGrid";
 import Article from "./components/Article";
+import ProfileForm from "./components/ProfileForm";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -14,18 +15,22 @@ const router = createBrowserRouter([{
     element: <App/>,
     children: [
         {
-            path: "/",
+            path: '/',
             element: <NewsGrid/>,
         },
         {
-            path: "news/:articleId",
+            path: 'news/:articleId',
             element: <Article/>,
+        },
+        {
+            path: 'profile',
+            element: <ProfileForm />
         }
     ]
 }]);
 
 root.render(
-    <React.StrictMode>
+    <>
         <RouterProvider router={router}/>
-    </React.StrictMode>
+    </>
 );
