@@ -14,7 +14,7 @@ export default {
     },
     setToken(value: string): string|undefined {
         return Cookies.set(tokenCookie, value, {
-            sameSite: 'none',
+            sameSite: 'strict',
             secure: true
         })
     },
