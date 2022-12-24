@@ -6,7 +6,7 @@ import SessionHelper from "../utils/SessionHelper";
 const UserProfile = () => {
     const profile = ProfileHelper.getProfile();
 
-    const { setIsLoggedIn } = useContext(UserContext);
+    const {setIsLoggedIn} = useContext(UserContext);
 
     const logout = () => {
         SessionHelper.deleteToken();
