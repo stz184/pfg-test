@@ -19,7 +19,7 @@ const NewsGrid = () => {
         if (!query) return true;
 
         const rx = new RegExp(escape(query), 'ig');
-        return article.title.search(rx) > -1 || article.content.search(rx) > 1;
+        return article.title.search(rx) > -1;
     }, [search]);
 
     useEffect(() => {
