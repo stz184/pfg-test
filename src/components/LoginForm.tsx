@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {Formik} from "formik";
 import * as Yup from "yup";
 import AuthenticationService, {LoginData} from "../services/AuthenticationService";
@@ -16,13 +16,14 @@ const LoginForm = () => {
             .required("Password is a required field")
     });
 
-    const { setIsLoggedIn } = useContext(UserContext);
+    const {setIsLoggedIn} = useContext(UserContext);
+    const [isInvalidPassword, setIsInvalidPassword] = useState(false);
 
     return (
         <Formik
             validationSchema={schema}
             initialValues={{username: "", password: ""}}
-            onSubmit={(values) => {
+            onSubmit={(values, actions) => {
                 const credentials: LoginData = values;
                 AuthenticationService.login(credentials).then((data) => {
                     const profile: UserProfile = (({ username, firstName, lastName, job, phone, photo, email }) => ({ username, firstName, lastName, job, phone, photo, email }))(data);
@@ -32,19 +33,24 @@ const LoginForm = () => {
                     SessionHelper.setToken(token);
 
                     setIsLoggedIn(true);
+                }).catch(() => {
+                    setIsInvalidPassword(true);
+                    actions.setSubmitting(false);
                 })
             }}
         >
             {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting
-            }) => (
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting
+              }) => (
                 <form noValidate onSubmit={handleSubmit}>
+                    {isInvalidPassword && (
+                    <p className="mb-2 text-sm text-red-600 dark:text-red-500">Invalid username or password</p>)}
                     <div className="form-group mb-6">
                         <input
                             type="email"
@@ -56,7 +62,8 @@ const LoginForm = () => {
                             value={values.username}
                             placeholder="Username"
                         />
-                        {touched.username && errors.username && (<p className="mt-2 text-sm text-red-600 dark:text-red-500">{errors.username}</p>)}
+                        {touched.username && errors.username && (
+                            <p className="mt-2 text-sm text-red-600 dark:text-red-500">{errors.username}</p>)}
                     </div>
                     <div className="form-group mb-6">
                         <input
@@ -69,17 +76,17 @@ const LoginForm = () => {
                             value={values.password}
                             placeholder="Password"
                         />
-                        {touched.password && errors.password && (<p className="mt-2 text-sm text-red-600 dark:text-red-500">{errors.password}</p>)}
+                        {touched.password && errors.password && (
+                            <p className="mt-2 text-sm text-red-600 dark:text-red-500">{errors.password}</p>)}
                     </div>
                     <button
                         type="submit"
-                        className={`${isSubmitting ? 'bg-gray-300' : 'bg-blue-600'} w-full px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out`}
-                        data-mdb-ripple="true"
-                        data-mdb-ripple-color="light"
+                        className={`${isSubmitting ? 'bg-gray-300' : 'bg-blue-600 focus:bg-blue-700 active:bg-blue-800 hover:bg-blue-700'} w-full px-6 py-2.5 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg`}
                         disabled={isSubmitting}
                     >
                         {isSubmitting && (
-                            <svg role="status" className="inline mr-3 w-4 h-4 text-white animate-spin" viewBox="0 0 100 101"
+                            <svg role="status" className="inline mr-3 w-4 h-4 text-white animate-spin"
+                                 viewBox="0 0 100 101"
                                  fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
