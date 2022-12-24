@@ -18,7 +18,6 @@ const ArticleComponent = () => {
     const [page, setPage] = useState(1);
     const [isArticleLoading, setIsArticleLoading] = useState(false);
     const [isCommentsLoading, setIsCommentsLoading] = useState(false);
-    const [commentsCount, setCommentsCount] = useState(10000);
     const {isLoggedIn} = useContext(UserContext);
 
     useEffect(() => {
@@ -34,7 +33,7 @@ const ArticleComponent = () => {
             .then(
                 (comments) => setComments(comments)
             )
-            .catch(() => setCommentsCount(page * 20))
+            .catch(() => {})
             .finally(() => setIsCommentsLoading(false));
     }, [page]);
 
@@ -54,7 +53,7 @@ const ArticleComponent = () => {
                         <h3 className="mb-4 text-lg font-semibold text-gray-900">Comments</h3>
                         {isCommentsLoading && <LoadingSpinner />}
                         {!isCommentsLoading && comments.map((comment) => <CommentComponent key={comment.id} comment={comment} />)}
-                        {!isCommentsLoading && comments.length > 0 && <Pager itemsNumber={commentsCount} onPageCallback={setPage} currentPage={page} />}
+                        {!isCommentsLoading && comments.length > 0 && <Pager itemsNumber={60} itemsOnPage={20} onPageCallback={setPage} currentPage={page} />}
                     </div>
                 </>
             )}
