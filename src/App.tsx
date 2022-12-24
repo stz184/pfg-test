@@ -20,6 +20,7 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
 
     useEffect(() => {
+        document.title = 'PFG test';
         setIsLoggedIn(SessionHelper.getToken() !== 'undefined' && ProfileHelper.getProfile() !== null);
     }, []);
 
